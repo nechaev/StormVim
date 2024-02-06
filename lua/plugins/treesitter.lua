@@ -40,6 +40,8 @@ return {
           "bash",
           "lua",
           "vim",
+          "vimdoc",
+          "query",
           "dockerfile",
           "gitignore",
           "query",

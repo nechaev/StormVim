@@ -1,3 +1,5 @@
+local util = require("stormvim.util.ui")
+
 return {
 	-- file explorer
 	{
@@ -34,43 +36,74 @@ return {
 		},
 	},
 
-	-- Fuzzy finder.
-	{
-		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			local telescope = require("telescope")
-			local actions = require("telescope.actions")
+  -- Fuzzy finder.
+  {
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      local telescope = require("telescope")
+      local actions = require("telescope.actions")
 
-			telescope.setup({
-				defaults = {
-					path_display = { "truncate " },
-					mappings = {
-						i = {
-							["<C-k>"] = actions.move_selection_previous, -- move to prev result
-							["<C-j>"] = actions.move_selection_next, -- move to next result
-							["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-						},
-					},
-				},
-			})
+      telescope.setup({
+        defaults = {
+          prompt_prefix = " ",
+          path_display = { "truncate " },
+          preview = {
+            filesize_limit = 1, -- Mb
+          },
+          layout_strategy = 'horizontal',
+          layout_config = {
+            horizontal = {
+              mirror = false,
+              prompt_position = "top",
+            },
+          },
+          sorting_strategy = 'ascending',
+          results_title = false,
+          dynamic_preview_title = true,
+          mappings = {
+            i = {
+              ["<C-k>"] = actions.move_selection_previous, -- move to prev result
+              ["<C-j>"] = actions.move_selection_next, -- move to next result
+              ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+              ["<C-h>"] = "which_key"
+            },
+          },
+        },
+        pickers = {
+          find_files = {
+            path_display = util.filename_first, -- see https://github.com/nvim-telescope/telescope.nvim/issues/2014#issuecomment-1873229658
+          },
+          buffers = {
+            mappings = {
+              i = {
+                ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
+              }
+            },
+          },
+        },
+      })
 
-			telescope.load_extension("fzf")
+      telescope.load_extension("fzf")
 
-			-- set keymaps
-			local keymap = vim.keymap -- for conciseness
-
-			keymap.set("n", "<C-f>f", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-			keymap.set("n", "<C-f>s", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-			keymap.set("n", "<C-f>b", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
-			keymap.set("n", "<C-f>g", "<cmd>Telescope gir_commits<cr>", { desc = "Find commits" })
-		end,
-	},
+      -- set keymaps
+      local keymap = vim.keymap -- for conciseness
+      local builtin = require('telescope.builtin')
+      keymap.set("n", "<C-f>f", builtin.find_files, { desc = "Find files" })
+      keymap.set("n", "<C-f>s", builtin.live_grep, { desc = "Find string" })
+      keymap.set("n", "<C-f>b", builtin.buffers, { desc = "Find buffers" })
+      keymap.set("n", "<C-f>c", builtin.git_commits, { desc = "Find commits" })
+      keymap.set("n", "<C-f>k", builtin.keymaps, { desc = "Find keymaps" })
+      keymap.set("n", "<C-f>g", builtin.git_branches, { desc = "Git branches" })
+      keymap.set("n", "<leader>t", builtin.treesitter, { desc = "Document symbols" })
+      keymap.set("n", "<C-f>,", ":Config<CR>", { desc = "Find in config" })
+    end,
+  },
 
 	-- git signs highlights text that has changed since the list
 	-- git commit, and also lets you interactively stage & unstage
