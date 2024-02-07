@@ -27,3 +27,11 @@ vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Sav
 -- better indenting
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+
+-- diffview binding
+vim.keymap.set("n", "<leader>h", "<cmd>DiffviewFileHistory %<cr>", { desc = "Show file history" })
+vim.keymap.set("n", "<C-g>", "<cmd>DiffviewOpen<cr>", { desc = "Show file history" })
+
+-- tabs
+vim.keymap.set("n", "<C-t>c", "<cmd>tabclose<cr>", { desc = "Close tab" })
+
