@@ -1,145 +1,206 @@
-local ui_utils = require("stormvim.util.ui")
+local Util = require("stormvim.util")
+local Icons = require("lazyvim.config").icons
 
 return {
-  -- file explorer
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    keys = {
-      { "<C-e>", ":Neotree toggle<CR>", desc = "Explorer NeoTree" },
-    },
-    opts = {
-      sources = { "filesystem" },
-      filesystem = {
-        follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
-      },
-      window = {
-        mappings = {
-          ["<space>"] = "none",
-          ["Y"] = function(state)
-            local node = state.tree:get_node()
-            local path = node:get_id()
-            vim.fn.setreg("+", path, "c")
-          end,
-        },
-      },
-      default_component_configs = {
-        indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
-        },
-      },
-    },
-  },
-
-  -- Fuzzy finder.
+  -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      local telescope = require("telescope")
+    -- rewrite keys
+    keys = function()
+      return {
+        -- stylua: ignore
+
+        -- find
+        { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+        { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
+        { "<leader>,", "<cmd>Config<cr>", desc = "Find Config File" },
+        { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+        { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
+        { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
+
+        -- git
+        { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
+        { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "branches" },
+        -- search
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+        { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+        { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+        { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+        -- treesitter
+        { "<leader>t", "<cmd>Telescope treesitter<cr>", desc = "Document symbols" },
+      }
+    end,
+    -- change some options
+    opts = function()
       local actions = require("telescope.actions")
-      local action_state = require('telescope.actions.state')
-      telescope.setup({
+      local action_state = require("telescope.actions.state")
+
+      local open_with_trouble = function(...)
+        return require("trouble.providers.telescope").open_with_trouble(...)
+      end
+      local open_selected_with_trouble = function(...)
+        return require("trouble.providers.telescope").open_selected_with_trouble(...)
+      end
+      local find_files_no_ignore = function()
+        local line = action_state.get_current_line()
+        Util.telescope("find_files", { no_ignore = true, default_text = line })()
+      end
+      local find_files_with_hidden = function()
+        local line = action_state.get_current_line()
+        Util.telescope("find_files", { hidden = true, default_text = line })()
+      end
+      local open_diff_commit = function()
+        -- Open in diffview
+        local entry = action_state.get_selected_entry()
+        -- close Telescope window properly prior to switching windows
+        actions.close(vim.api.nvim_get_current_buf())
+        vim.cmd(("DiffviewOpen %s^!"):format(entry.value))
+      end
+      local open_diff_branch = function()
+        -- Open in diffview
+        local entry = action_state.get_selected_entry()
+        -- close Telescope window properly prior to switching windows
+        actions.close(vim.api.nvim_get_current_buf())
+        vim.cmd(("DiffviewOpen %s.."):format(entry.value))
+      end
+
+      return {
         defaults = {
           prompt_prefix = " ",
-          path_display = { "truncate " },
+          path_display = { "truncate" },
+          selection_caret = " ",
+          -- open files in the first window that is an actual file.
+          -- use the current window if no other window is available.
+          get_selection_window = function()
+            local wins = vim.api.nvim_list_wins()
+            table.insert(wins, 1, vim.api.nvim_get_current_win())
+            for _, win in ipairs(wins) do
+              local buf = vim.api.nvim_win_get_buf(win)
+              if vim.bo[buf].buftype == "" then
+                return win
+              end
+            end
+            return 0
+          end,
           preview = {
             filesize_limit = 1, -- Mb
           },
-          layout_strategy = 'horizontal',
+          layout_strategy = "horizontal",
           layout_config = {
             horizontal = {
               mirror = false,
               prompt_position = "top",
             },
           },
-          sorting_strategy = 'ascending',
+          sorting_strategy = "ascending",
           results_title = false,
           dynamic_preview_title = true,
           mappings = {
             i = {
+              ["<C-f>"] = actions.preview_scrolling_down,
+              ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
               ["<C-j>"] = actions.move_selection_next, -- move to next result
-              ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-              ["<C-h>"] = "which_key"
+              ["<C-h>"] = "which_key",
+            },
+            n = {
+              ["q"] = actions.close,
             },
           },
         },
         pickers = {
           find_files = {
-            path_display = ui_utils.filename_first, -- see https://github.com/nvim-telescope/telescope.nvim/issues/2014#issuecomment-1873229658
+            path_display = Util.telescope.filename_first, -- see https://github.com/nvim-telescope/telescope.nvim/issues/2014#issuecomment-1873229658
+            mappings = {
+              i = {
+                ["<a-i>"] = find_files_no_ignore,
+                ["<a-h>"] = find_files_with_hidden,
+                ["<c-t>"] = open_with_trouble,
+                ["<a-t>"] = open_selected_with_trouble,
+              },
+            },
           },
+
+          git_files = {
+            path_display = Util.telescope.filename_first, -- see https://github.com/nvim-telescope/telescope.nvim/issues/2014#issuecomment-1873229658
+            mappings = {
+              i = {
+                ["<a-i>"] = find_files_no_ignore,
+                ["<a-h>"] = find_files_with_hidden,
+                ["<c-t>"] = open_with_trouble,
+                ["<a-t>"] = open_selected_with_trouble,
+              },
+            },
+          },
+
           buffers = {
             mappings = {
               i = {
-                ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
-              }
+                ["<C-d>"] = actions.delete_buffer + require("telescope.actions").move_to_top,
+              },
             },
           },
           git_commits = {
             mappings = {
               i = {
-                ["<C-o>"] = function() -- show diffview for the selected commit
-                  -- Open in diffview
-                  local entry = action_state.get_selected_entry()
-                  -- close Telescope window properly prior to switching windows
-                  actions.close(vim.api.nvim_get_current_buf())
-                  vim.cmd(("DiffviewOpen %s^!"):format(entry.value))
-                end,
+                ["<C-o>"] = open_diff_commit,
               },
             },
           },
           git_bcommits = {
             mappings = {
               i = {
-                ["<C-o>"] = function() -- show diffview for the selected commit of current buffer
-                  -- Open in diffview
-                  local entry = action_state.get_selected_entry()
-                  -- close Telescope window properly prior to switching windows
-                  actions.close(vim.api.nvim_get_current_buf())
-                  vim.cmd(("DiffviewOpen %s^!"):format(entry.value))
-                end,
+                ["<C-o>"] = open_diff_commit,
               },
             },
           },
           git_branches = {
             mappings = {
               i = {
-                ["<C-o>"] = function() -- show diffview comparing the selected branch with the current branch
-                  -- Open in diffview
-                  local entry = action_state.get_selected_entry()
-                  -- close Telescope window properly prior to switching windows
-                  actions.close(vim.api.nvim_get_current_buf())
-                  vim.cmd(("DiffviewOpen %s.."):format(entry.value))
-                end,
+                ["<C-o>"] = open_diff_branch,
               },
             },
           },
         },
-      })
+      }
+    end,
+  },
 
-      telescope.load_extension("fzf")
+  -- colorizer text like #RGB
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      filetypes = {
+        "css",
+        "javascript",
+        html = { mode = "foreground" },
+      },
+    },
+  },
 
-      -- set keymaps
-      local keymap = vim.keymap -- for conciseness
-      local builtin = require('telescope.builtin')
-      keymap.set("n", "<C-f>f", builtin.find_files, { desc = "Find files" })
-      keymap.set("n", "<C-f>s", builtin.live_grep, { desc = "Find string" })
-      keymap.set("n", "<C-f>b", builtin.buffers, { desc = "Find buffers" })
-      keymap.set("n", "<C-f>c", builtin.git_commits, { desc = "Find commits" })
-      keymap.set("n", "<C-f>k", builtin.keymaps, { desc = "Find keymaps" })
-      keymap.set("n", "<C-f>g", builtin.git_branches, { desc = "Git branches" })
-      keymap.set("n", "<leader>t", builtin.treesitter, { desc = "Document symbols" })
-      keymap.set("n", "<C-f>,", ":Config<CR>", { desc = "Find in config" })
+  -- better diagnostics list and others
+  {
+    "folke/trouble.nvim",
+    opts = {
+      signs = {
+        -- icons / text used for a diagnostic
+        error = Icons.diagnostics.Error,
+        warning = Icons.diagnostics.Warn,
+        hint = Icons.diagnostics.Hint,
+        information = Icons.diagnostics.Info,
+        other = "",
+      },
+    },
+    keys = function()
+      return {
+        { "<leader>dd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
+        { "<leader>dq", "<cmd>TroubleToggle quickfix<cr>", desc = "Diagnostic Quickfix List" },
+        { "<leader>dw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+        { "<leader>dl", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
+      }
     end,
   },
 
@@ -148,56 +209,31 @@ return {
   -- hunks in a commit.
   {
     "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = true,
-  },
-
-  -- git diff tool
-  {
-    "sindrets/diffview.nvim",
-    lazy = false,
-    config = function()
-      local actions = require("diffview.actions")
-      require('diffview').setup({
-        diff_binaries = false,
-        enhanced_diff_hl = true,
-        keymaps = {
-          file_panel = {
-            { "n", "a", actions.toggle_stage_entry, { desc = "Stage / unstage the selected entry" } },
-            { "n", "A", actions.stage_all,          { desc = "Stage all entries" } },
-            { "n", "r", actions.restore_entry       { desc = "Restore entry to the state on the left side" } },
-          },
+    event = "LazyFile",
+    opts = function()
+      return {
+        signs = {
+          add = { text = "▎" },
+          change = { text = "▎" },
+          delete = { text = "" },
+          topdelete = { text = "" },
+          changedelete = { text = "▎" },
+          untracked = { text = "▎" },
         },
-      })
-    end,
-  },
-  -- better diagnostics list and others
-  {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      signs = {
-      -- icons / text used for a diagnostic
-      error = "'",
-      warning = "",
-      hint = "",
-      information = "󰋼'",
-      other = "",
-    },
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
-    keys = {
-      { "<leader>d", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
-      { "<leader>q", "<cmd>TroubleToggle quickfix<cr>", desc = "Diagnostic Quickfix List" },
-    },
-  },
+        on_attach = function(buffer)
+          local gs = package.loaded.gitsigns
 
-  -- colorizer text like #RGB
-  {
-    "NvChad/nvim-colorizer.lua",
-    event = { "BufReadPre", "BufNewFile" },
-    config = true,
+          local function map(mode, l, r, desc)
+            vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+          end
+
+          -- stylua: ignore start
+          map("n", "]h", gs.next_hunk, "Next Hunk")
+          map("n", "[h", gs.prev_hunk, "Prev Hunk")
+          map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
+          map("n", "<leader>gl", gs.toggle_current_line_blame, "Blame Line")
+        end,
+      }
+    end,
   },
 }
