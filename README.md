@@ -1,11 +1,13 @@
 <div align="center">
-    <img src="https://https://raw.githubusercontent.com/nechaev/StormVim/master/screenshots/stormvim.png?raw=true"/>
+    <img src="https://raw.githubusercontent.com/nechaev/StormVim/master/screenshots/stormvim.png?raw=true"/>
 </div>
 
 <hr/>
 
 StormVim is a Neovim configuration, oriented for web development in php, html, css, javascript.
+
 Based on [LazyVim](https://github.com/LazyVim/LazyVim). Inspired by PhpStorm. Built for MacOS.
+
 I made it for myself, but maybe it will be useful to someone else.
 
 ## ✨ Features
