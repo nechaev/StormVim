@@ -4,7 +4,8 @@
 
 <div align="center">
     <a href="./docs/requirements.md"><kbd> <br> Requirements <br> </kbd></a>
-    <a href="./docs/readme.md"><kbd> <br> Docs <br> </kbd></a>
+    <a href="./docs/keymaps.md"><kbd> <br> Keymaps <br> </kbd></a>
+    <a href="./docs/readme.md"><kbd> <br> Documentation <br> </kbd></a>
 </div>
 
 <hr/>
