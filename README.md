@@ -27,3 +27,8 @@ I made it for myself, but maybe it will be useful to someone else.
 <div align="center">
     <img src="https://raw.githubusercontent.com/nechaev/StormVim/master/screenshots/interface.png?raw=true"/>
 </div>
+
+## 🙌 Support the Author
+
+- If you like StormVim, give it a star on GitHub!
+- If you would like to suggest some functionality, [create an issue](https://github.com/nechaev/StormVim/issues/new).
