@@ -17,6 +17,16 @@ return {
         phpactor = {},
       },
     },
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      -- disable a keymap
+      keys[#keys + 1] = { "<leader>cl", false }
+      keys[#keys + 1] = { "gD", false }
+      keys[#keys + 1] = { "gI", false }
+      keys[#keys + 1] = { "gy", false }
+      keys[#keys + 1] = { "gK", false }
+      keys[#keys + 1] = { "<leader>cA", false }
+    end,
   },
   {
     "williamboman/mason.nvim",

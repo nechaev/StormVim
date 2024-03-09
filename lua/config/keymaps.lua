@@ -33,6 +33,7 @@ vim.keymap.del("n", "[b") -- "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 vim.keymap.del("n", "]b") -- "<cmd>bnext<cr>", { desc = "Next buffer" })
 vim.keymap.del("n", "<leader>bb") -- "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.del("n", "<leader>`") -- "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+vim.keymap.set("n", "<leader>q", "<cmd>bd<cr>", { desc = "Close buffer" })
 
 -- Clear search with <esc>
 -- vim.keymap.del({ "i", "n" }, "<esc>") -- "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })

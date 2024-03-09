@@ -24,10 +24,7 @@ return {
         { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "branches" },
         -- search
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-        { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
-        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-        { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-        { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+        { "<leader>?", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
         -- treesitter
         { "<leader>t", "<cmd>Telescope treesitter<cr>", desc = "Document symbols" },
       }
@@ -230,8 +227,8 @@ return {
           -- stylua: ignore start
           map("n", "]h", gs.next_hunk, "Next Hunk")
           map("n", "[h", gs.prev_hunk, "Prev Hunk")
-          map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
-          map("n", "<leader>gl", gs.toggle_current_line_blame, "Blame Line")
+          map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line (with diff)")
+          map("n", "<leader>gl", gs.toggle_current_line_blame, "Toggle inline Blame Line")
         end,
       }
     end,
