@@ -132,7 +132,7 @@ If you want to unbind some keymaps, just uncomment the line with `vim.keymap.del
 | `<Space>` `<Tab>` `f` | First Tab | **n** |
 | `<Space>` `<Tab>` `<Tab>` | New Tab | **n** |
 | `<Space>` `<Tab>` `]` | Next Tab | **n** |
-| `<Space>` `<Tab>` `d` | Close Tab | **n** |
+| `<Space>` `<Tab>` `q` | Close Tab | **n** |
 | `<Space>` `<Tab>` `[` | Previous Tab | **n** |
 
 ## Work with git
