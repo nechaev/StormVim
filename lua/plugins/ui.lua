@@ -1,6 +1,42 @@
 local Icons = require("lazyvim.config").icons
 return {
 
+  -- file explorer
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      enable_diagnostics = false,
+      filesystem = {
+        filtered_items = {
+          hide_gitignored = false,
+        },
+      },
+      default_component_configs = {
+        indent = {
+          with_markers = false,
+        },
+        name = {
+          -- use_git_status_colors = false,
+        },
+        git_status = {
+          symbols = {
+            -- Change type
+            added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+            modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+            deleted = "", -- this can only be used in the git_status source
+            renamed = "󰁕", -- this can only be used in the git_status source
+            -- Status type
+            untracked = "",
+            ignored = "",
+            unstaged = "",
+            staged = "",
+            conflict = "",
+          },
+        },
+      },
+    },
+  },
+
   -- statusline
   {
     "nvim-lualine/lualine.nvim",
@@ -85,10 +121,10 @@ Y88b  d88P Y88b. Y88..88P 888     888  888  888   Y888P      888   888   "   888
             { action = "Telescope find_files",                                     desc = " Find file",       icon = " ", key = "f" },
             { action = "ene | startinsert",                                        desc = " New file",        icon = " ", key = "n" },
             { action = "Telescope oldfiles",                                       desc = " Recent files",    icon = " ", key = "r" },
-            { action = "Telescope live_grep",                                      desc = " Find text",       icon = "󱄽 ", key = "g" },
-            { action = [[lua require("lazyvim.util").telescope.config_files()()]], desc = " Config",          icon = " ", key = "c" },
+            { action = "Telescope live_grep",                                      desc = " Find text",       icon = "󱄽 ", key = "t" },
+            { action = [[lua require("lazyvim.util").telescope.config_files()()]], desc = " Config",          icon = " ", key = "," },
             { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
-            { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x" },
+            { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "e" },
             { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
             { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
           },
