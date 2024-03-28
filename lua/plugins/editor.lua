@@ -26,7 +26,7 @@ return {
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
         { "<leader>?", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
         -- treesitter
-        { "<leader>t", "<cmd>Telescope treesitter<cr>", desc = "Document symbols" },
+        { "<leader>cs", "<cmd>Telescope treesitter<cr>", desc = "Document symbols" },
       }
     end,
     -- change some options

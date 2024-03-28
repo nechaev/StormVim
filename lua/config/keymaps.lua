@@ -1,3 +1,4 @@
+local Util = require("lazyvim.util")
 -- Uncomment line for reset LazyVim default mappings
 
 -- better up/down
@@ -33,7 +34,6 @@ vim.keymap.del("n", "[b") -- "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 vim.keymap.del("n", "]b") -- "<cmd>bnext<cr>", { desc = "Next buffer" })
 vim.keymap.del("n", "<leader>bb") -- "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.del("n", "<leader>`") -- "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-vim.keymap.set("n", "<leader>q", "<cmd>bd<cr>", { desc = "Close buffer" })
 
 -- Clear search with <esc>
 -- vim.keymap.del({ "i", "n" }, "<esc>") -- "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
@@ -97,16 +97,16 @@ vim.keymap.del({ "n", "v" }, "<leader>cf") -- function() Util.format({ force = t
 -- stylua: ignore start
 
 -- toggle options
-vim.keymap.del("n", "<leader>uf") -- function() Util.format.toggle() end, { desc = "Toggle auto format (global)" })
-vim.keymap.del("n", "<leader>uF") -- function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" })
-vim.keymap.del("n", "<leader>us") -- function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
-vim.keymap.del("n", "<leader>uw") -- function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
-vim.keymap.del("n", "<leader>uL") -- function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
-vim.keymap.del("n", "<leader>ul") --, function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
-vim.keymap.del("n", "<leader>ud") -- function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
-vim.keymap.del("n", "<leader>uc") -- function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+-- vim.keymap.del("n", "<leader>uf") -- function() Util.format.toggle() end, { desc = "Toggle auto format (global)" })
+-- vim.keymap.del("n", "<leader>uF") -- function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" })
+-- vim.keymap.del("n", "<leader>us") -- function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
+-- vim.keymap.del("n", "<leader>uw") -- function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+-- vim.keymap.del("n", "<leader>uL") -- function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
+-- vim.keymap.del("n", "<leader>ul") --, function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
+-- vim.keymap.del("n", "<leader>ud") -- function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+-- vim.keymap.del("n", "<leader>uc") -- function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 vim.keymap.del("n", "<leader>uT") -- function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" })
-vim.keymap.del("n", "<leader>ub") -- function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
+-- vim.keymap.del("n", "<leader>ub") -- function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
 
 -- lazygit
 vim.keymap.del("n", "<leader>gg") -- function() Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })

@@ -68,6 +68,7 @@ If you want to unbind some keymaps, just uncomment the line with `vim.keymap.del
 | `<Space>` `h` | Git file history | **n** |
 | `<Space>` `c` `a` | Code Action | **n**, **v** |
 | `<Space>` `c` `d` | Line Diagnostics | **n** |
+| `<Space>` `c` `s` | Document symbols | **n** |
 | `]` `d` | Next Diagnostic | **n** |
 | `[` `d` | Prev Diagnostic | **n** |
 | `]` `e` | Next Error | **n** |
@@ -114,7 +115,6 @@ If you want to unbind some keymaps, just uncomment the line with `vim.keymap.del
 | `⇧` + `h` | Prev buffer | **n** |
 | `⇧` + `l` | Next buffer | **n** |
 | `<Space>` `f` `b` | List of open buffers | **n** |
-| `<Space>` `q` | Close buffer | **n** |
 | `<Space>` `b` `l` | Delete buffers to the left | **n** |
 | `<Space>` `b` `o` | Delete other buffers | **n** |
 | `<Space>` `b` `p` | Toggle pin | **n** |
