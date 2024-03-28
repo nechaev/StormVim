@@ -100,10 +100,11 @@ return {
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
               ["<C-j>"] = actions.move_selection_next, -- move to next result
-              ["<C-h>"] = "which_key",
+              ["<C-h>"] = require("telescope.actions.layout").toggle_preview,
             },
             n = {
               ["q"] = actions.close,
+              ["<C-h>"] = require("telescope.actions.layout").toggle_preview,
             },
           },
         },
