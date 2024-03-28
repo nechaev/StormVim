@@ -145,7 +145,8 @@ vim.keymap.del("n", "<leader>ww") -- "<C-W>p", { desc = "Other window", remap = 
 vim.keymap.del("n", "<leader>w-") -- "<C-W>s", { desc = "Split window below", remap = true })
 vim.keymap.del("n", "<leader>w|") -- "<C-W>v", { desc = "Split window right", remap = true })
 -- vim.keymap.del("n", "<leader>-") -- "<C-W>s", { desc = "Split window below", remap = true })
--- vim.keymap.del("n", "<leader>|") -- "<C-W>v", { desc = "Split window right", remap = true })
+vim.keymap.del("n", "<leader>|") -- "<C-W>v", { desc = "Split window right", remap = true })
+vim.keymap.set("n", "<leader>\\", "<C-W>v", { desc = "Split window right", remap = true })
 
 -- tabs
 -- vim.keymap.del("n", "<leader><tab>l") -- "<cmd>tablast<cr>", { desc = "Last Tab" })

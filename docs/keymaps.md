@@ -34,22 +34,28 @@ If you want to unbind some keymaps, just uncomment the line with `vim.keymap.del
 
 | Key | Description | Mode |
 | --- | ----------- | :----: |
-| `⌃` + `h` | Go to left window | **n**, **t** |
-| `⌃` + `j` | Go to lower window | **n**, **t** |
-| `⌃` + `k` | Go to upper window | **n**, **t** |
-| `⌃` + `l` | Go to right window | **n**, **t** |
-| `<Space>` `w` `d` | Delete window | **n** |
-| `<Space>` `-` | Split window below | **n** |
-| `<Space>` `\|` | Split window right | **n** |
 | `<Esc>` | Escape and clear hlsearch | **i**, **n** |
 | `⌃` + `s` | Save file | **i**, **x**, **n**, **s** |
 | `<Space>` `q` `q` | Quit all | **n** |
+| `<Space>` `f` `n` | New file | **n** |
 | `<Space>` `u` `i` | Inspect Pos | **n** |
 | `⌃` + `/` | Terminal (root dir) | **n** |
 | `⌃` + `/` | Hide Terminal | **t** |
 | `⌃` + `_` | which_key_ignore | **n**, **t** |
 | `<Esc>` `<Esc>` | Enter Normal Mode | **t** |
 | `<Space>` `s` `h` | Help Pages | **n** |
+
+## Windows
+
+| Key | Description | Mode |
+| --- | ----------- | :----: |
+| `⌃` + `h` | Go to left window | **n**, **t** |
+| `⌃` + `j` | Go to lower window | **n**, **t** |
+| `⌃` + `k` | Go to upper window | **n**, **t** |
+| `⌃` + `l` | Go to right window | **n**, **t** |
+| `<Space>` `w` `d` | Delete window | **n** |
+| `<Space>` `-` | Split window below | **n** |
+| `<Space>` `\` | Split window right | **n** |
 
 ## Editing / Refactoring
 
