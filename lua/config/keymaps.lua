@@ -1,3 +1,4 @@
+local Util = require("lazyvim.util")
 -- Uncomment line for reset LazyVim default mappings
 
 -- better up/down
@@ -96,16 +97,16 @@ vim.keymap.del({ "n", "v" }, "<leader>cf") -- function() Util.format({ force = t
 -- stylua: ignore start
 
 -- toggle options
-vim.keymap.del("n", "<leader>uf") -- function() Util.format.toggle() end, { desc = "Toggle auto format (global)" })
-vim.keymap.del("n", "<leader>uF") -- function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" })
-vim.keymap.del("n", "<leader>us") -- function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
-vim.keymap.del("n", "<leader>uw") -- function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
-vim.keymap.del("n", "<leader>uL") -- function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
-vim.keymap.del("n", "<leader>ul") --, function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
-vim.keymap.del("n", "<leader>ud") -- function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
-vim.keymap.del("n", "<leader>uc") -- function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+-- vim.keymap.del("n", "<leader>uf") -- function() Util.format.toggle() end, { desc = "Toggle auto format (global)" })
+-- vim.keymap.del("n", "<leader>uF") -- function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" })
+-- vim.keymap.del("n", "<leader>us") -- function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
+-- vim.keymap.del("n", "<leader>uw") -- function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+-- vim.keymap.del("n", "<leader>uL") -- function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
+-- vim.keymap.del("n", "<leader>ul") --, function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
+-- vim.keymap.del("n", "<leader>ud") -- function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+-- vim.keymap.del("n", "<leader>uc") -- function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 vim.keymap.del("n", "<leader>uT") -- function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" })
-vim.keymap.del("n", "<leader>ub") -- function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
+-- vim.keymap.del("n", "<leader>ub") -- function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
 
 -- lazygit
 vim.keymap.del("n", "<leader>gg") -- function() Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })
@@ -144,12 +145,14 @@ vim.keymap.del("n", "<leader>ww") -- "<C-W>p", { desc = "Other window", remap = 
 vim.keymap.del("n", "<leader>w-") -- "<C-W>s", { desc = "Split window below", remap = true })
 vim.keymap.del("n", "<leader>w|") -- "<C-W>v", { desc = "Split window right", remap = true })
 -- vim.keymap.del("n", "<leader>-") -- "<C-W>s", { desc = "Split window below", remap = true })
--- vim.keymap.del("n", "<leader>|") -- "<C-W>v", { desc = "Split window right", remap = true })
+vim.keymap.del("n", "<leader>|") -- "<C-W>v", { desc = "Split window right", remap = true })
+vim.keymap.set("n", "<leader>\\", "<C-W>v", { desc = "Split window right", remap = true })
 
 -- tabs
 -- vim.keymap.del("n", "<leader><tab>l") -- "<cmd>tablast<cr>", { desc = "Last Tab" })
 -- vim.keymap.del("n", "<leader><tab>f") -- "<cmd>tabfirst<cr>", { desc = "First Tab" })
 -- vim.keymap.del("n", "<leader><tab><tab>") -- "<cmd>tabnew<cr>", { desc = "New Tab" })
 -- vim.keymap.del("n", "<leader><tab>]") -- "<cmd>tabnext<cr>", { desc = "Next Tab" })
--- vim.keymap.del("n", "<leader><tab>d") -- "<cmd>tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.del("n", "<leader><tab>d") -- "<cmd>tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.set("n", "<leader><tab>q", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 -- vim.keymap.del("n", "<leader><tab>[") -- "<cmd>tabprevious<cr>", { desc = "Previous Tab" })

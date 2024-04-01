@@ -24,12 +24,9 @@ return {
         { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "branches" },
         -- search
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-        { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
-        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-        { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-        { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+        { "<leader>?", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
         -- treesitter
-        { "<leader>t", "<cmd>Telescope treesitter<cr>", desc = "Document symbols" },
+        { "<leader>cs", "<cmd>Telescope treesitter<cr>", desc = "Document symbols" },
       }
     end,
     -- change some options
@@ -103,10 +100,11 @@ return {
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
               ["<C-j>"] = actions.move_selection_next, -- move to next result
-              ["<C-h>"] = "which_key",
+              ["<C-h>"] = require("telescope.actions.layout").toggle_preview,
             },
             n = {
               ["q"] = actions.close,
+              ["<C-h>"] = require("telescope.actions.layout").toggle_preview,
             },
           },
         },
@@ -230,8 +228,8 @@ return {
           -- stylua: ignore start
           map("n", "]h", gs.next_hunk, "Next Hunk")
           map("n", "[h", gs.prev_hunk, "Prev Hunk")
-          map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
-          map("n", "<leader>gl", gs.toggle_current_line_blame, "Blame Line")
+          map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line (with diff)")
+          map("n", "<leader>gl", gs.toggle_current_line_blame, "Toggle inline Blame Line")
         end,
       }
     end,
