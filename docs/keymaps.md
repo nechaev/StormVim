@@ -70,8 +70,6 @@ If you want to unbind some keymaps, just uncomment the line with `vim.keymap.del
 | `⌃` + `k` | Signature Help | **i** |
 | `<Space>` `c` `F` | Format Injected Langs | **n**, **v** |
 | `<Space>` `c` `r` | Rename | **n** |
-| `<Space>` `g` `l` | Toggle git blame line | **n**, **v** |
-| `<Space>` `h` | Git file history | **n** |
 | `<Space>` `c` `a` | Code Action | **n**, **v** |
 | `<Space>` `c` `d` | Line Diagnostics | **n** |
 | `<Space>` `c` `s` | Document symbols | **n** |
@@ -91,6 +89,15 @@ If you want to unbind some keymaps, just uncomment the line with `vim.keymap.del
 | `<Space>` `x` `T` | Todo/Fix/Fixme (Trouble) | **n** |
 | `[` `t` | Previous todo comment | **n** |
 | `]` `t` | Next todo comment | **n** |
+
+## Work with Git
+
+| Key | Description | Mode |
+| --- | ----------- | :----: |
+| `<Space>` `g` `a` | Toggle annotate with Git Blame | **n** |
+| `<Space>` `g` `d` | Git Blame (with diff) | **n** |
+| `<Space>` `g` `b` | Git Branches | **n** |
+| `<Space>` `g` `h` | Git file history | **n** |
 
 ## Search / Replace
 

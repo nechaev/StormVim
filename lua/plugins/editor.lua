@@ -20,8 +20,8 @@ return {
         { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
 
         -- git
-        { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
-        { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "branches" },
+        { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Git commits" },
+        { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Git branches" },
         -- search
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
         { "<leader>?", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
@@ -86,6 +86,7 @@ return {
           },
           layout_strategy = "horizontal",
           layout_config = {
+            width = 0.8,
             horizontal = {
               mirror = false,
               prompt_position = "top",
@@ -100,11 +101,11 @@ return {
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
               ["<C-j>"] = actions.move_selection_next, -- move to next result
-              ["<C-h>"] = require("telescope.actions.layout").toggle_preview,
+              ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
             },
             n = {
               ["q"] = actions.close,
-              ["<C-h>"] = require("telescope.actions.layout").toggle_preview,
+              ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
             },
           },
         },
@@ -228,8 +229,8 @@ return {
           -- stylua: ignore start
           map("n", "]h", gs.next_hunk, "Next Hunk")
           map("n", "[h", gs.prev_hunk, "Prev Hunk")
-          map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line (with diff)")
-          map("n", "<leader>gl", gs.toggle_current_line_blame, "Toggle inline Blame Line")
+          map("n", "<leader>gd", function() gs.blame_line({ full = true }) end, "Git Blame (with diff)")
+          map("n", "<leader>ga", gs.toggle_current_line_blame, "Toggle annotate with Git Blame")
         end,
       }
     end,

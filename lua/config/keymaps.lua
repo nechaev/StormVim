@@ -69,6 +69,8 @@ vim.keymap.del("n", "<leader>K") -- "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- better indenting
 -- vim.keymap.del("v", "<") -- "<gv")
 -- vim.keymap.del("v", ">") -- ">gv")
+-- delete in the black hole
+vim.keymap.set("n", "d", '"_d', { noremap = true })
 
 -- lazy
 vim.keymap.del("n", "<leader>l") -- "<cmd>Lazy<cr>", { desc = "Lazy" })
@@ -113,7 +115,7 @@ vim.keymap.del("n", "<leader>gg") -- function() Util.terminal({ "lazygit" }, { c
 vim.keymap.del("n", "<leader>gG") -- function() Util.terminal({ "lazygit" }, {esc_esc = false, ctrl_hjkl = false}) end, { desc = "Lazygit (cwd)" })
 
 -- diffview binding
-vim.keymap.set("n", "<leader>h", "<cmd>DiffviewFileHistory %<cr>", { desc = "Show file history in git" })
+vim.keymap.set("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", { desc = "Show file history in git" })
 vim.keymap.set("n", "<C-g>", "<cmd>DiffviewOpen<cr>", { desc = "Show git status" })
 -- quit
 -- vim.keymap.del("n", "<leader>qq") -- "<cmd>qa<cr>", { desc = "Quit all" })
