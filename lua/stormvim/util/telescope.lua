@@ -1,5 +1,4 @@
----@class stormvim.util.telescope: lazyvim.util.telescope
-local M = require("lazyvim.util.telescope")
+local M = {}
 
 M.filename_first = function(_, path)
   local tail = vim.fs.basename(path)

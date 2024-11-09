@@ -31,11 +31,7 @@ setmetatable(M, {
     end
     ---@diagnostic disable-next-line: no-unknown
     local status, module = pcall(require, "stormvim.util." .. k)
-    if not status then
-      t[k] = require("lazyvim.util." .. k)
-    else
-      t[k] = module
-    end
+    t[k] = module
     return t[k]
   end,
 })

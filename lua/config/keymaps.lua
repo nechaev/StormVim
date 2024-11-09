@@ -111,8 +111,8 @@ vim.keymap.del("n", "<leader>uT") -- function() if vim.b.ts_highlight then vim.t
 -- vim.keymap.del("n", "<leader>ub") -- function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
 
 -- lazygit
-vim.keymap.del("n", "<leader>gg") -- function() Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })
-vim.keymap.del("n", "<leader>gG") -- function() Util.terminal({ "lazygit" }, {esc_esc = false, ctrl_hjkl = false}) end, { desc = "Lazygit (cwd)" })
+-- vim.keymap.del("n", "<leader>gg") -- function() Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })
+-- vim.keymap.del("n", "<leader>gG") -- function() Util.terminal({ "lazygit" }, {esc_esc = false, ctrl_hjkl = false}) end, { desc = "Lazygit (cwd)" })
 
 -- diffview binding
 vim.keymap.set("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", { desc = "Show file history in git" })
@@ -142,10 +142,7 @@ vim.keymap.del("n", "<leader>fT") -- function() Util.terminal() end, { desc = "T
 -- vim.keymap.del("t", "<c-_>") -- "<cmd>close<cr>", { desc = "which_key_ignore" })
 
 -- windows
-vim.keymap.del("n", "<leader>ww") -- "<C-W>p", { desc = "Other window", remap = true })
 -- vim.keymap.del("n", "<leader>wd") -- "<C-W>c", { desc = "Delete window", remap = true })
-vim.keymap.del("n", "<leader>w-") -- "<C-W>s", { desc = "Split window below", remap = true })
-vim.keymap.del("n", "<leader>w|") -- "<C-W>v", { desc = "Split window right", remap = true })
 -- vim.keymap.del("n", "<leader>-") -- "<C-W>s", { desc = "Split window below", remap = true })
 vim.keymap.del("n", "<leader>|") -- "<C-W>v", { desc = "Split window right", remap = true })
 vim.keymap.set("n", "<leader>\\", "<C-W>v", { desc = "Split window right", remap = true })
