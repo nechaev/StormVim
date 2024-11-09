@@ -127,7 +127,7 @@ If you want to unbind some keymaps, just uncomment the line with `vim.keymap.del
 | --- | ----------- | :----: |
 | `⇧` + `h` | Prev buffer | **n** |
 | `⇧` + `l` | Next buffer | **n** |
-| `<Space>` `f` `b` | List of open buffers | **n** |
+| `<Space>` `b` `b` | List of open buffers | **n** |
 | `<Space>` `b` `l` | Delete buffers to the left | **n** |
 | `<Space>` `b` `o` | Delete other buffers | **n** |
 | `<Space>` `b` `p` | Toggle pin | **n** |

@@ -11,12 +11,12 @@ return {
         -- stylua: ignore
 
         -- find
-        { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep (root dir)" },
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-        { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
+        { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files (root dir)" },
         { "<leader>,", "<cmd>Config<cr>", desc = "Find Config File" },
-        { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-        { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
+        { "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+        { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files (root dir)" },
         { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
 
         -- git
@@ -25,8 +25,8 @@ return {
         -- search
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
         { "<leader>?", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-        -- treesitter
-        { "<leader>cs", "<cmd>Telescope treesitter<cr>", desc = "Document symbols" },
+        -- lsp
+        { "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols" },
       }
     end,
     -- change some options
