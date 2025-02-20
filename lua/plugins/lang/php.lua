@@ -5,6 +5,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "php",
         "phpdoc",
+        "sql",
       })
     end,
   },
@@ -15,7 +16,7 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
-        phpactor = {},
+        -- phpactor = {},
         intelephense = {},
       },
     },
@@ -34,7 +35,33 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "phpactor", "intelephense", "php-cs-fixer" })
+      -- vim.list_extend(opts.ensure_installed, { "phpactor", "intelephense", "php-cs-fixer" })
+      vim.list_extend(opts.ensure_installed, { "intelephense", "php-cs-fixer" })
     end,
+  },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        php = { "php" },
+      },
+      format_on_save = {
+        lsp_fallback = true,
+        async = false,
+        timeout_ms = 1000,
+      },
+      notify_on_error = true,
+      formatters = {
+        php = {
+          command = "php-cs-fixer",
+          args = {
+            "fix",
+            "$FILENAME",
+          },
+          stdin = false,
+        },
+      },
+    },
   },
 }
